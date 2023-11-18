@@ -42,20 +42,7 @@ public class RoomDimensionInputController : MonoBehaviour
         }
     }
 
-    private void OnDepthChanged(float newDepthValue)
-    {
-        // Placeholder logic for depth value changes, if necessary.
-    }
-
-    private void OnHeightChanged(float newHeightValue)
-    {
-        // Placeholder logic for height value changes, if necessary.
-    }
-
-    private void OnWidthChanged(float newWidthValue)
-    {
-        // Placeholder logic for width value changes, if necessary.
-    }
+  
 
     private void OnDisable()
     {
