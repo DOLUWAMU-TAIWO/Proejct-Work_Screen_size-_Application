@@ -4,7 +4,7 @@ using UnityEngine;
 public class CombinedUICubeController : MonoBehaviour
 {
     public Input_Variables inputVariables; // Reference to the Input_Variables script
-    public UIDocument uiDocument; // Drag your UIDocument component in the Inspector
+    public UIDocument uiDocument; // Drag UIDocument component in the Inspector
 
     private VisualElement root;
     private Toggle bdmToggle;
