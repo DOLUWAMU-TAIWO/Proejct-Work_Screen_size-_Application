@@ -56,23 +56,37 @@ public class ViewMode : MonoBehaviour
         }
     }
 
-    private void ToggleObjectsVisibility(bool visible)
+// Toggles the visibility of each GameObject in the gameObjectsToToggle array.
+private void ToggleObjectsVisibility(bool visible)
+{
+    // Iterate through each GameObject in the array.
+    foreach (GameObject go in gameObjectsToToggle)
     {
-        foreach (GameObject go in gameObjectsToToggle)
+        // Check if the GameObject is not null to avoid NullReferenceException.
+        if (go != null)
         {
-            if (go != null)
+            // Try to get the Renderer component of the GameObject.
+            Renderer renderer = go.GetComponent<Renderer>();
+
+            // Check if the GameObject has a Renderer component.
+            if (renderer != null)
             {
-                Renderer renderer = go.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    Color color = renderer.material.color;
-                    color.a = visible ? originalOpacities[go] : 0.0f; // Restore to original opacity or make transparent
-                    renderer.material.color = color;
-                }
-               
+                // Access the color of the material attached to the Renderer.
+                Color color = renderer.material.color;
+
+                // Set the alpha (opacity) of the color.
+                // If visible is true, restore to original opacity stored in originalOpacities.
+                // If visible is false, set opacity to 0 (fully transparent).
+                color.a = visible ? originalOpacities[go] : 0.0f;
+
+                // Apply the modified color back to the material.
+                renderer.material.color = color;
             }
+           
         }
     }
+}
+
 
     private void ToggleUIVisibility(bool visible)
     {
