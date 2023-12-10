@@ -69,8 +69,7 @@ public class ViewMode : MonoBehaviour
                     color.a = visible ? originalOpacities[go] : 0.0f; // Restore to original opacity or make transparent
                     renderer.material.color = color;
                 }
-                // For non-renderer objects, use SetActive (if needed, uncomment the line below)
-                // go.SetActive(visible);
+               
             }
         }
     }
