@@ -30,7 +30,7 @@ public class ImageDisplayPreference : MonoBehaviour
     // Callback method when any toggle value changes
     private void OnToggleValueChanged(ChangeEvent<bool> evt, string toggleName)
     {
-        // Assuming you have a reference to the Input_Variables script
+     // to avoid nullvalue reference 
         Input_Variables inputVariables = FindObjectOfType<Input_Variables>();
 
         if (inputVariables != null)
