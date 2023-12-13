@@ -41,6 +41,8 @@ public class SimpleViewModeToggle : MonoBehaviour
 
     private void ToggleEscapeMessageVisibility()
     {
+    
+        // Accesing and storing display stlye in var currentdisplay
         var currentDisplay = escapeMessageUIDocument.rootVisualElement.style.display;
         // Toggle visibility only if the current display style is none (hidden)
         if (currentDisplay == DisplayStyle.None)
