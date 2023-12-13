@@ -4,67 +4,74 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Adjust this to control movement speed
-    public float mouseSensitivity = 2f; // Adjust this to control mouse sensitivity
+    public float moveSpeed = 5f; // Player movement speed.
+    public float mouseSensitivity = 2f; // Sensitivity of mouse movement.
 
     private CharacterController characterController;
-    private Transform playerTransform; // Reference to the player's transform.
-    private bool isCursorLocked = false; // Start with cursor unlocked
-    private bool canMove = false; // Flag to control movement
+    private Transform playerTransform; // Transform component of the player.
+    private bool isCursorLocked = false; // State of the cursor lock.
+    private bool canMove = false; // Determines if the player can move.
 
-    private float horizontalRotation = 0f; // Variable to store horizontal rotation
+    private float horizontalRotation = 0f; // Stores the horizontal rotation angle.
 
     void Start()
     {
+        // Initialize characterController and playerTransform at the start.
         characterController = GetComponent<CharacterController>();
-        playerTransform = transform; // Get the player's transform.
+        playerTransform = transform; // Assign the Transform component of this GameObject.
     }
 
     void Update()
     {
+        // Check if the player can move and if the cursor is locked.
         if (canMove && isCursorLocked)
         {
-            // Player movement
+            // Handle player movement based on input.
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
 
+            // Calculate movement direction and normalize it.
             Vector3 moveDirection = playerTransform.forward * verticalInput + playerTransform.right * horizontalInput;
-            moveDirection.Normalize(); // Normalize to ensure consistent speed in all directions.
+            moveDirection.Normalize(); // Ensure consistent movement speed in all directions.
 
+            // Apply movement to the character controller.
             characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
 
-            // Player rotation based on mouse input
+            // Handle player rotation based on mouse movement.
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
             horizontalRotation += mouseX;
-            horizontalRotation = Mathf.Clamp(horizontalRotation, -70f, 70f); // Limit horizontal rotation
+            horizontalRotation = Mathf.Clamp(horizontalRotation, -70f, 70f); // Constrain rotation to prevent over-rotation.
             playerTransform.localRotation = Quaternion.Euler(0f, horizontalRotation, 0f);
         }
 
-        // Toggle cursor lock state with a specific key
+        // Toggle cursor lock state when the 'C' key is pressed.
         if (Input.GetKeyDown(KeyCode.C))
         {
             isCursorLocked = !isCursorLocked;
-            LockCursor();
+            LockCursor(); // Apply the new cursor lock state.
         }
     }
 
     private void LockCursor()
     {
+        // Set cursor lock state and visibility based on isCursorLocked.
         Cursor.lockState = isCursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
-        Cursor.visible = !isCursorLocked;
+        Cursor.visible = !isCursorLocked; // Hide cursor when locked, show when unlocked.
     }
 
     public void EnableCursorControl()
     {
+        // Enable cursor control and player movement.
         isCursorLocked = true;
-        canMove = true; // Enable movement
-        LockCursor();
+        canMove = true; 
+        LockCursor(); // Apply cursor lock.
     }
 
     public void DisableCursorControl()
     {
+        // Disable cursor control and player movement.
         isCursorLocked = false;
-        canMove = false; // Disable movement
-        LockCursor();
+        canMove = false;
+        LockCursor(); // Apply cursor lock.
     }
 }
